@@ -3,7 +3,8 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Terapia - Physical Therapy Website Template</title>
+        <title>PredictiCare</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo3-modified.png" > 
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -59,8 +60,8 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
-                                <a href="appointment.html" class="dropdown-item">View Profile</a>
-                                <a href="feature.html" class="dropdown-item">Logout</a>
+                                <a href="#" class="dropdown-item">View Profile</a>
+                                <a href="#" class="dropdown-item">Logout</a>
                                 
                             </div>
                         </div>
@@ -77,7 +78,7 @@
                     <img src="{{ url_for('static',filename='img/banner1.jpg')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="carousel-caption-content p-3">
-                            <a class="btnmain rounded-pill text-white py-3 px-5" href="#"><b>START PREDICTING DIAGNOSIS<b></a>
+                            <a href="#" class="btnmain rounded-pill text-white py-3 px-5" data-bs-toggle="modal" data-bs-target="#diagnosis"><b>Start Diagnosis<b></a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +86,7 @@
                     <img src="{{ url_for('static',filename='img/Untitled40.png')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="carousel-caption-content p-3">
-                            <a class="btnmain rounded-pill text-white py-3 px-5" href="#">Start Diagnosis</a>
+                            <a href="#" class="btnmain rounded-pill text-white py-3 px-5" data-bs-toggle="modal" data-bs-target="#diagnosis">Start Diagnosis</a>
                         </div>
                     </div>
                 </div>
@@ -95,9 +96,125 @@
         <!-- Navbar & Hero End -->
 
 
+        <!--Diagnosis Modal Start-->
+        <div class="modal fade" id="diagnosis" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalToggleLabel">Fill out the form to start diagnosis</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6><p>Do you experience fever?</p></h6>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="fever" id="fever11" value="option1" >
+                            <label class="form-check-label" for="fever1">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="fever" id="fever2" value="option2">
+                            <label class="form-check-label" for="fever2">No</label>
+                        </div>
+                        <p>
+
+                    <h6><p>Do you experience cough?</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="cough" id="cough1" value="option1" >
+                            <label class="form-check-label" for="cough1">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="cough" id="cough2" value="option2">
+                            <label class="form-check-label" for="cough2">No</label>
+                        </div><p>
+
+                    <h6><p>Do you experience fatigue??</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="fatigue" id="fatigue1" value="option1" >
+                            <label class="form-check-label" for="fatigue1">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="fatigue" id="fatigue2" value="option2">
+                            <label class="form-check-label" for="fatigue2">No</label>
+                        </div><p>
+
+                    <h6><p>Do you experience difficulty in breathing?</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difbr" id="difbr1" value="option1" >
+                            <label class="form-check-label" for="difbr1">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="difbr" id="difbr2" value="option2">
+                            <label class="form-check-label" for="difbr2">No</label>
+                        </div><p>
+
+                    <h6><p>Please select your age.</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="age" id="age1" value="option1" >
+                            <label class="form-check-label" for="age1">19 and bellow</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="age" id="age2" value="option2">
+                            <label class="form-check-label" for="age2">20-29</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="age" id="age3" value="option1" >
+                            <label class="form-check-label" for="age3">30-39</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="age" id="age4" value="option2">
+                            <label class="form-check-label" for="age4">40-49</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="age" id="age5" value="option2">
+                            <label class="form-check-label" for="age5">50 and above</label>
+                        </div><p>
+
+                    <h6><p>Please Select you gender.</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender1" value="option1" >
+                            <label class="form-check-label" for="gender1">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender2" value="option2">
+                            <label class="form-check-label" for="gender2">Female</label>
+                        </div><p>
+
+                    <h6><p>Please select your blood pressure.</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bp" id="bp1" value="option1" >
+                            <label class="form-check-label" for="bp1">Low</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bp" id="bp2" value="option2">
+                            <label class="form-check-label" for="bp2">Normal</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bp" id="bp2" value="option2">
+                            <label class="form-check-label" for="bp2">High</label>
+                        </div><p>
+
+                    <h6><p>Please select you cholesterol level.</p></h6>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="chol" id="chol1" value="option1" >
+                            <label class="form-check-label" for="chol1">Low</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="chol" id="chol2" value="option2">
+                            <label class="form-check-label" for="chol2">Normal</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="chol" id="chol3" value="option2">
+                            <label class="form-check-label" for="chol3">High</label>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="reset" class="btn btn-primary">Clear</button>
+                  <input type="submit" name="diagnosis_input" value="Submit" class="btn btn-primary">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Diagnosis Modal-->
        
-
-
         <!-- About Start -->
         <div class="container-fluid about bg-light py-5" id="about">
             <div class="container py-5">
