@@ -23,6 +23,7 @@ def home():
     # gender = request.form["gender"]
     # bp = request.form["bp"]
     # chol = request.form["chol"]
+    
     varfever = 1
     varcough = 1
     varfatigue = 0
