@@ -54,15 +54,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Prediction Records</a>
+                        <a href="" class="nav-item nav-link active">Home</a>
+                        <a href="" class="nav-item nav-link">Prediction Records</a>
                         <a href="#about" class="nav-item nav-link">About Us</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
-                                <a href="#" class="dropdown-item">View Profile</a>
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
                                 <a href="#" class="dropdown-item">Logout</a>
-                                
                             </div>
                         </div>
                         
@@ -97,15 +96,15 @@
 
 
         <!--Diagnosis Modal Start-->
-        <div class="modal fade" id="diagnosis" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="diagnosis" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
+            <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalToggleLabel">Fill out the form to start diagnosis</h5>
+                  <h4 class="modal-title" id="exampleModalToggleLabel1">Fill out the form to start diagnosis</h4>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6><p>Do you experience fever?</p></h6>
+                    <h5><p>Do you experience fever?</p></h5>
                             <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="fever" id="fever11" value="option1" >
                             <label class="form-check-label" for="fever1">Yes</label>
@@ -116,7 +115,7 @@
                         </div>
                         <p>
 
-                    <h6><p>Do you experience cough?</p></h6>
+                    <h5><p>Do you experience cough?</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="cough" id="cough1" value="option1" >
                             <label class="form-check-label" for="cough1">Yes</label>
@@ -126,7 +125,7 @@
                             <label class="form-check-label" for="cough2">No</label>
                         </div><p>
 
-                    <h6><p>Do you experience fatigue??</p></h6>
+                    <h5><p>Do you experience fatigue??</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="fatigue" id="fatigue1" value="option1" >
                             <label class="form-check-label" for="fatigue1">Yes</label>
@@ -136,7 +135,7 @@
                             <label class="form-check-label" for="fatigue2">No</label>
                         </div><p>
 
-                    <h6><p>Do you experience difficulty in breathing?</p></h6>
+                    <h5><p>Do you experience difficulty in breathing?</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="difbr" id="difbr1" value="option1" >
                             <label class="form-check-label" for="difbr1">Yes</label>
@@ -146,7 +145,7 @@
                             <label class="form-check-label" for="difbr2">No</label>
                         </div><p>
 
-                    <h6><p>Please select your age.</p></h6>
+                    <h5><p>Please select your age.</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="age" id="age1" value="option1" >
                             <label class="form-check-label" for="age1">19 and bellow</label>
@@ -168,7 +167,7 @@
                             <label class="form-check-label" for="age5">50 and above</label>
                         </div><p>
 
-                    <h6><p>Please Select you gender.</p></h6>
+                    <h5><p>Please Select you gender.</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="gender" id="gender1" value="option1" >
                             <label class="form-check-label" for="gender1">Male</label>
@@ -178,7 +177,7 @@
                             <label class="form-check-label" for="gender2">Female</label>
                         </div><p>
 
-                    <h6><p>Please select your blood pressure.</p></h6>
+                    <h5><p>Please select your blood pressure.</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="bp" id="bp1" value="option1" >
                             <label class="form-check-label" for="bp1">Low</label>
@@ -192,7 +191,7 @@
                             <label class="form-check-label" for="bp2">High</label>
                         </div><p>
 
-                    <h6><p>Please select you cholesterol level.</p></h6>
+                    <h5><p>Please select you cholesterol level.</p></h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="chol" id="chol1" value="option1" >
                             <label class="form-check-label" for="chol1">Low</label>
@@ -213,7 +212,113 @@
               </div>
             </div>
           </div>
-          <!--Diagnosis Modal-->
+        <!--Diagnosis Modal End-->
+
+        <!--View Profile Modal Start-->
+        <div class="modal fade" id="view_profile" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalToggleLabel2">Account Details</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <section style="background-color: #eee;">
+                        <div class="container py-5">
+                      
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="card mb-4">
+                                <div class="card-body text-center">
+                                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                    class="rounded-circle img-fluid" style="width: 150px;">
+                                  <h5 class="my-3">John Smith</h5>
+                                  <p class="text-muted mb-1">Full Stack Developer</p>
+                                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                  <div class="d-flex justify-content-center mb-2">
+                                    <a href="#" class="dropdown-item">Upload New Image</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-8">
+                              <div class="card mb-4">
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">Johnatan Smith</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Age</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">25</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Address</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">Shibuya-ku, Kyoto, Tokyo, Japan</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Gender</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">Male</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Birthdate</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">03/15/1999</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">contact</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">09876543211</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">Jonhsmith@gmail.com</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </section>
+                    <div class="modal-footer">
+                        <a href="#" class="dropdown-item">Update</a>
+                        <a href="#" class="dropdown-item">Delete</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <!--View Profile Modal End-->
        
         <!-- About Start -->
         <div class="container-fluid about bg-light py-5" id="about">
