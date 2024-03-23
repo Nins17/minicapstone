@@ -45,7 +45,7 @@
         <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
                 <a href="index.html" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0"><i class="fas fa-star-of-life me-3"></i>Terapia</h1>
+                    <h1 class="text-primary m-0">PredictiCare</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -54,22 +54,19 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                         <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Services</a>
+                        <a href="about.html" class="nav-item nav-link">Prediction Records</a>
+                        <a href="#about" class="nav-item nav-link">About Us</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
-                                <a href="appointment.html" class="dropdown-item">Appointment</a>
-                                <a href="feature.html" class="dropdown-item">Features</a>
-                                <a href="blog.html" class="dropdown-item">Our Blog</a>
-                                <a href="team.html" class="dropdown-item">Our Team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
+                                <a href="appointment.html" class="dropdown-item">View Profile</a>
+                                <a href="feature.html" class="dropdown-item">Logout</a>
+                                
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                        
                     </div>
-                    <a href="#" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Book Appointment</a>
+                   
                 </div>
             </nav>
 
@@ -77,26 +74,18 @@
             <!-- Carousel Start -->
             <div class="header-carousel owl-carousel">
                 <div class="header-carousel-item">
-                    <img src="{{ url_for('static',filename='img/carousel-1.jpg')}}" class="img-fluid w-100" alt="Image">
+                    <img src="{{ url_for('static',filename='img/banner1.jpg')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="carousel-caption-content p-3">
-                            <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Physiotherapy Center</h5>
-                            <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
-                            <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Book Appointment</a>
+                            <a class="btnmain rounded-pill text-white py-3 px-5" href="#"><b>START PREDICTING DIAGNOSIS<b></a>
                         </div>
                     </div>
                 </div>
                 <div class="header-carousel-item">
-                    <img src="{{ url_for('static',filename='img/carousel-2.jpg')}}" class="img-fluid w-100" alt="Image">
+                    <img src="{{ url_for('static',filename='img/Untitled40.png')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="carousel-caption-content p-3">
-                            <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Physiotherapy Center</h5>
-                            <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
-                            <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            </p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Book Appointment</a>
+                            <a class="btnmain rounded-pill text-white py-3 px-5" href="#">Start Diagnosis</a>
                         </div>
                     </div>
                 </div>
@@ -110,16 +99,12 @@
 
 
         <!-- About Start -->
-        <div class="container-fluid about bg-light py-5">
+        <div class="container-fluid about bg-light py-5" id="about">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s">
                         <div class="about-img pb-5 ps-5">
-                            <img src="{{ url_for('static',filename='img/about-1.jpg')}}" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image">
-                            <div class="about-img-inner">
-                                <img src="{{ url_for('static',filename='img/about-2.jpg')}}" class="img-fluid rounded-circle w-100 h-100" alt="Image">
-                            </div>
-                            <div class="about-experience">15 years experience</div>
+                            <img src="{{ url_for('static',filename='img/logo3-modified.png')}}" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image">
                         </div>
                     </div>
                     <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.4s">
@@ -202,13 +187,13 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-start mb-md-0">
-                        <span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                        <span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Mekus Mekus</a>, All right reserved.</span>
                     </div>
                     <div class="col-md-6 text-center text-md-end text-white">
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                         <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                         <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                        Designed By <a class="border-bottom">MekusMekus</a> 
                     </div>
                 </div>
             </div>
@@ -216,7 +201,7 @@
         <!-- Copyright End -->
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <a href="#" class="btn  btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
         
         <!-- JavaScript Libraries -->
