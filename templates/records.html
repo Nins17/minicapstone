@@ -54,9 +54,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="http://127.0.0.1:5000/" class="nav-item nav-link active">Home</a>
-                        <a href="http://127.0.0.1:5000/records" class="nav-item nav-link">Prediction Records</a>
-                        <a href="#about" class="nav-item nav-link">About Us</a>
+                        <a href="{{url_for('home')}}" class="nav-item nav-link active">Home</a>
+                        <a href="{{url_for('records')}}" class="nav-item nav-link">Prediction Records</a>
+                        <a href="{{url_for('home')}}#about" class="nav-item nav-link">About Us</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
