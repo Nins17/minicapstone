@@ -15,14 +15,16 @@ def home():
 
     model.fit(X.values, y)
     
-    # fever = request.form["fever"]
-    # cough = request.form["cough"]
-    # fatigue = request.form["fatigue"]
-    # difBr = request.form["difBr"]
-    # age = request.form["age"]
-    # gender = request.form["gender"]
-    # bp = request.form["bp"]
-    # chol = request.form["chol"]
+    fever = request.form["fever"]
+    cough = request.form["cough"]
+    fatigue = request.form["fatigue"]
+    difBr = request.form["difBr"]
+    age = request.form["age"]
+    gender = request.form["gender"]
+    bp = request.form["bp"]
+    chol = request.form["chol"]
+    
+   
     
     varfever = 1
     varcough = 1
