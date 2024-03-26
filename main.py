@@ -1,7 +1,7 @@
 from flask import Flask, render_template,redirect,url_for, request
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
-from flaskext.mysql import MySQL
+#from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 @app.route("/")
