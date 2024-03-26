@@ -60,7 +60,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Sign_up">Sign UP</a>
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#sign_up">Sign Up</a>
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#login">Login</a>
                             </div>
                         </div>
@@ -94,17 +94,17 @@
         </div>
         <!-- Navbar & Hero End -->
 
-        <!-- Modal for Sign up -->
-        <div class="modal fade" id="Sign_up" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalToggleLabel1">Sign Up</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="margin-left: 8px;">
-                    <form action="/home" method="post">
-                        <form action="/" method="POST" enctype="multipart/form-data" >
+        <!--Sign up Modal Start-->
+        <div class="modal fade" id="sign_up" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
+            <div class="modal-dialog modal-l">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalToggleLabel1">Sign Up</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="margin-left: 8px;">
+                        <form action="/home" method="post">
+                            <form action="/" method="POST" enctype="multipart/form-data" >
       
                             <label for="">PROFILE PIC</label>
                             <div class="input-group">
@@ -116,95 +116,103 @@
                             <label for="">FULL NAME</label>
                             <div class="input-group">
                               <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="text" class="form-control" required name="ln" placeholder="Enter Full Name">
+                              <input type="text" class="form-control" required name="fullname" placeholder="Enter Full Name">
                             </div></br>
                       
                             <label for="">AGE</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="text" class="form-control" required name="fn"placeholder="Enter Age ">
+                              <span class="input-group-text"><i class="bi bi-person-plus text-primary"></i></span>
+                              <input type="text" class="form-control" required name="age"placeholder="Enter Age ">
                             </div></br>
 
                             <label for="">ADDRESS</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="text" class="form-control" required name="fn"placeholder="Enter Address">
+                              <span class="input-group-text"><i class="fa fa-location-arrow text-primary"></i></span>
+                              <input type="text" class="form-control" required name="address"placeholder="Enter Address">
                             </div></br>
 
                             <label for="">GENDER</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="text" class="form-control" required name="fn"placeholder="Enter Gender">
+                              <span class="input-group-text"><i class="bi bi-person text-primary"></i></span>
+                              <input type="text" class="form-control" required name="gender"placeholder="Enter Gender">
                             </div></br>
 
                             <label for="">BIRTHDAY</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="date" class="form-control" required name="fn"placeholder="Birthday">
+                              <span class="input-group-text"><i class="bi bi-calendar text-primary"></i></span>
+                              <input type="date" class="form-control" required name="birthday"placeholder="Birthday">
                             </div></br>
 
                             <label for="">CONTACT NUMBER</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
-                              <input type="text" class="form-control" required name="fn"placeholder="Enter Contact Number">
+                              <span class="input-group-text"><i class="bi bi-telephone text-primary"></i></span>
+                              <input type="text" class="form-control" required name="contact"placeholder="Enter Contact Number">
                             </div></br>
                       
                             <label for="">EMAIL</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-envelope-at text-primary"></i></span>
+                              <span class="input-group-text"><i class="bi bi-envelope text-primary"></i></span>
                               <input type="email" class="form-control" required name="email" placeholder="Enter Email">
                             </div></br>
                       
                             <label for="">PASSWORD</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-key-fill text-"></i></span>
+                              <span class="input-group-text"><i class="bi bi-key text"></i></span>
                               <input type="password" class="form-control" required name="password" placeholder="Enter Password">
-                            </div>
-                      
-                    <div class="modal-footer">
-                    <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
-                    <button type="submit" name="diagnosis_input"  class="btn btn-primary" style="color: white;">Submit</button>
-                    </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        <!--Diagnosis Modal End-->
+                            </div><br>
 
-        <div class="modal fade" id="login" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalToggleLabel1">Log in</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <label for=""> CONFIRM PASSWORD</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-key-fill text" style="color: rgba(22, 61, 48, 0.699);"></i></span>
+                              <input type="password" class="form-control" required name="confirm_password" placeholder="Enter Password">
+                            </div><br>
+                      
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
+                                <button type="submit" name="create_account"  class="btn btn-primary" style="color: white;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-body" style="margin-left: 8px;">
-                    <form action="/home" method="post">
+            </div>
+        </div>
+        <!--Sign up Modal End-->
+
+        <!--Login Modal Start-->
+        <div class="modal fade" id="login" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-l">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalToggleLabel2">Log in</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="margin-left: 8px;">
+                        <form action="/home" method="post">
                         
                             <label for="">EMAIL</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-envelope-at text-primary"></i></span>
+                              <span class="input-group-text"><i class="bi bi-envelope text-primary"></i></span>
                               <input type="email" class="form-control" required name="email" placeholder="Enter Email">
                             </div></br>
                       
                             <label for="">PASSWORD</label>
                             <div class="input-group">
-                              <span class="input-group-text"><i class="bi bi-key-fill text-"></i></span>
+                              <span class="input-group-text"><i class="bi bi-key text"></i></span>
                               <input type="password" class="form-control" required name="password" placeholder="Enter Password">
-                            </div>
+                            </div><br>
                       
-                    <div class="modal-footer">
-                    <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
-                    <button type="submit" name="diagnosis_input"  class="btn btn-primary" style="color: white;">Submit</button>
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
+                                <button type="submit" name="patient_login"  class="btn btn-primary" style="color: white;">Submit</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-              </div>
+                </div>
             </div>
-          </div>
+        </div>
+          <!--Login Modal End-->
                   
-
-       
-        <!-- About Start -->
+        <!-- About Start --> 
         <div class="container-fluid about bg-light py-5" id="about">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
