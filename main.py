@@ -1,56 +1,65 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template,redirect,url_for, request
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 
-@app.route("/",methods=["POST","GET"])
-def home(): 
-    varfever = 1
-    varcough = 1
-    
-    vardifBr = 1
-    vargender = 1
-    varbp = 3
-    varchol = 1
-    if request.method == "POST":
-        
-        fever = request.form["fever"]
-        cough = request.form["cough"]
-        fatigue = request.form["fatigue"]
-        difBr = request.form["difBr"]
-        age = request.form["age"]
-        gender = request.form["gender"]
-        bp = request.form["bp"]
-        chol = request.form["chol"]
-   
-    if(fever=="Yes"):
-         varfever = 1
-    elif(cough=="Yes"):
-        varcough = 1
-    elif(fatigue=="Yes"):
-        varfatigue = 1  
-    elif(difBr=="Yes"):
-        vardifBr =1 
-    elif(gender=="Female" or gender=="female"):  
-        vargender = 1
-    elif(gender=="Male" or gender=="male"): 
-        vargender = 0
-    data = pd.read_csv('data.csv')
+@app.route("/",methods=["POST", "GET"])
+def home():
+    return render_template("home.html")
+def diagnose():
+     if request.method == "POST": 
+        e = request.form["age"]
+        age =e
+        if request.form["fever"] == "Yes":
+            varfever = 1
+        elif request.form["fever"] == "No":
+            varfever = 0
+        if request.form["cough"] == "Yes":
+            varcough = 1
+        elif request.form["cough"] == "No":
+            varcough = 0
+        if request.form["fatigue"] == "Yes":
+            varfatigue = 1
+        elif request.form["fatigue"] == "No":
+            varfatigue = 0
+        if request.form["difbr"] == "Yes":
+            vardifBr = 1
+        elif request.form["difbr"] == "No":
+            vardifBr = 0
+        if request.form["gender"] == "Female" :
+            vargender = 1
+        elif request.form["gender"] == "Male":
+            vargender = 0
+        if request.form["bp"] == "low" :
+            varbp = 1
+        elif request.form["bp"] == "Normal":
+            varbp = 2
+        elif request.form["bp"] == "High":
+            varbp = 3
+        if request.form["chol"] == "low" :
+            varchol = 1
+        elif request.form["chol"] == "Normal":
+            varchol= 2
+        elif request.form["chol"] == "High":
+            varchol = 3
 
-    X = data.drop(columns=['Desease'])
-    y = data['Desease']
+        data = pd.read_csv("data.csv")
 
-    model = DecisionTreeClassifier()
+        X = data.drop(columns=["Desease"])
+        y = data["Desease"]
 
-    model.fit(X.values, y)
+        model = DecisionTreeClassifier()
 
-    diagnosis = model.predict([[ varfever,varcough, varfatigue, vardifBr, age, vargender, varbp, varchol]])
+        model.fit(X.values, y)
 
-    return render_template("home.html", diagnosis=diagnosis)
+        diagnosis = model.predict([[ varfever,varcough, varfatigue, vardifBr, age, vargender, varbp, varchol]]) 
+        return render_template("home.html",prediction=diagnosis[0])
 
 @app.route("/records")
 def records():
+    
     return render_template("records.html")
 
 if __name__ == "__main__":
