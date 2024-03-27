@@ -41,7 +41,8 @@ def Signup():
            
             
         if check_num[8] != email:
-            return render_template("login.html")
+            flash('Account created Successfully', 'error')
+            
         else:
              flash('Email already exist', 'error')             
         return redirect(url_for('land'))

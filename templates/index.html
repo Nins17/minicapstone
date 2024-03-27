@@ -33,6 +33,15 @@
 
     <body>
 
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            
+            {% for message in messages %}
+                <h6 class="text-white text-center" style="background-color:#b3b3b3;">{{ message }}</h6>
+            {% endfor %}
+            
+        {% endif %}
+    {% endwith %}
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -77,13 +86,6 @@
                     <img src="{{ url_for('static',filename='img/banner1.jpg')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
                         <div class="carousel-caption-content p-3">
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <h2>{{ message }}</h2>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
                             <a href="{{url_for('land')}}" onClick="alert('login first')"class="btnmain rounded-pill text-white py-3 px-5" data-bs-toggle="modal" data-bs-target="#diagnosis"><b>Start Diagnosis<b></a>
                         </div>
                     </div>
@@ -176,7 +178,7 @@
                       
                             <div class="modal-footer">
                                 <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
-                                <button type="submit" name="create_account"  class="btn btn-primary" style="color: white;"onclick="{{message}}">Submit</button>
+                                <button type="submit" name="create_account"  class="btn btn-primary" style="color: white;">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -186,6 +188,7 @@
 
 
         <!--Sign up Modal End-->
+        
 
         <!--Login Modal Start-->
         <div class="modal fade" id="login" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
