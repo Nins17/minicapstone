@@ -1,58 +1,71 @@
-from flask import Flask, render_template,redirect,url_for, request
+from flask import Flask, render_template,redirect,url_for, request,jsonify
 import pandas as pd
+from flask import *
 from sklearn.tree import DecisionTreeClassifier
-# from flaskext.mysql import MySQL
+from flaskext.mysql import MySQL
 
 app = Flask(__name__)
-@app.route("/")
+app.secret_key = "Mekusmekus"
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'  # Database user
+app.config['MYSQL_DATABASE_PASSWORD'] = ''  # Database password
+app.config['MYSQL_DATABASE_DB'] = 'predicticare'  # Name of database
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'  # Hosting site
+
+mysql.init_app(app)  
+conn = mysql.connect()  
+cursor = conn.cursor()
+
+
+
+@app.route("/",methods=["POST", "GET"])
 def land():
-    # if request.method == "POST": 
-        #  if request.form['sign up']:
-             
-    
     return render_template("index.html")
 
+@app.route('/signup', methods=['POST', 'GET'])
+def Signup():
+    if request.method == "POST": 
+        cursor.execute('SELECT * FROM profileinfo') 
+        check_num = cursor.fetchone()
+           
+        fullname = request.form["fullname"]
+        age = int(request.form["age"])
+        address = request.form["address"]
+        gender = request.form["gender"]
+        birthday = request.form["birthday"]
+        address = request.form["address"]
+        contact = int(request.form["contact"])
+        email = request.form["email"]
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]     
+           
+            
+        if check_num[8] != email:
+            return render_template("login.html")
+        else:
+             flash('Email already exist', 'error')             
+        return redirect(url_for('land'))
+            
+    
+       
+            
+    
 @app.route("/home",methods=["POST", "GET"])
 def home():
     return render_template("home.html")
 def diagnose():
      if request.method == "POST": 
          if request.form['diagnosis_input']:
-            e = request.form["age"]
-            age =e
-            if request.form["fever"] == "Yes":
-                varfever = 1
-            elif request.form["fever"] == "No":
-                varfever = 0
-            if request.form["cough"] == "Yes":
-                varcough = 1
-            elif request.form["cough"] == "No":
-                varcough = 0
-            if request.form["fatigue"] == "Yes":
-                varfatigue = 1
-            elif request.form["fatigue"] == "No":
-                varfatigue = 0
-            if request.form["difbr"] == "Yes":
-                vardifBr = 1
-            elif request.form["difbr"] == "No":
-                vardifBr = 0
-            if request.form["gender"] == "Female" :
-                vargender = 1
-            elif request.form["gender"] == "Male":
-                vargender = 0
-            if request.form["bp"] == "low" :
-                varbp = 1
-            elif request.form["bp"] == "Normal":
-                varbp = 2
-            elif request.form["bp"] == "High":
-                varbp = 3
-            if request.form["chol"] == "low" :
-                varchol = 1
-            elif request.form["chol"] == "Normal":
-                varchol= 2
-            elif request.form["chol"] == "High":
-                varchol = 3
-
+            age = int(request.form["age"])
+            varfever=int(request.form["fever"])
+            varcough = int(request.form["cough"])
+            varfatigue = int(request.form["fatigue"]) 
+            vardifBr = int(request.form["difbr"])
+            vargender = int(request.form["gender"])
+            varbp = int(request.form["bp"])
+            varchol = int(request.form["chol"])
+          
+      
             data = pd.read_csv("data.csv")
 
             X = data.drop(columns=["Desease"])
