@@ -84,6 +84,10 @@ def records():
     
     return render_template("records.html")
 
+@app.route("/landing")
+def landing():
+    return render_template("landing.html")
+
 
 
 if __name__ == "__main__":
