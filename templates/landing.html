@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>landing page</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo3-modified.png" > 
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="{{ url_for('static',filename='lib/animate/animate.min.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{{ url_for('static',filename='css/style.css')}}" rel="stylesheet">
+        <!--default line 39(to bottom, #02aab0, #00cdac)-->
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                background-image: linear-gradient(to bottom, #02aab0, #00cdac);
+                background-position: center;
+                background-attachment: fixed;
+                font-family: 'Roboto', sans-serif;
+            }
+            #container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10%;
+            }
+            .text__wrapper {
+                width: 37vw;
+                margin-right: 3%;
+                margin-top: 5%;
+            }
+            .title{
+                color: white !important;
+                font-size: 80px;
+                text-shadow: 0 0 50px white;
+            }
+            .description {
+                font-size: 30px;
+                color: white;
+                text-shadow: 0 0 2px white;
+            }
+            .form__wrapper {
+                margin-top: 5%;
+                background-color: #fff;
+                text-align: center;
+                padding: 1%;
+                border-radius: 5px;
+                line-height: 150%;
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            .forgotPassword {
+                color: var(--primaryColor);
+                font-size: 10px;
+                text-align: center;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!--Content Start-->
+        <div id="container">
+            <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s" style="width: 15%; padding-top: 120px; padding-right: 20px;">
+                <div class="about-img pb-5 ps-5">
+                    <img src="{{ url_for('static',filename='img/logo3-modified.png')}}" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image">
+                </div>
+            </div>
+            <div class="text__wrapper">
+                <div class="heading">
+                    <h1 class="title">PredictiCare</h1>
+                </div>
+                <h5 class="description">Care with Predictive Precision.</h5>
+            </div>
+            
+            <div class="form__wrapper">
+                <div class="modal-body" style="margin-left: 8px;">
+                    <form action="/home" method="post">
+                    
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="bi bi-envelope text-primary"></i></span>
+                          <input type="email" class="form-control" required name="email" placeholder="Enter Email">
+                        </div></br>
+                  
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="bi bi-key text"style="color: #4b706e;"></i></i></span>
+                          <input type="password" class="form-control" required name="password" placeholder="Enter Password">
+                        </div><br>
+                        <button type="submit" name="patient_login"  class="btn btn-success" style="color: white; width: 100%; ">Log In</button>
+                        <a href="#" class="forgotPassword">Forgot Password?</a>
+                        <hr>
+                        <a href="#" class="dropdown-item btn btn-success" style="color: white;" data-bs-toggle="modal" data-bs-target="#sign_up">Sign Up</a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--Content End-->
+
+        <!--Sign up Modal Start-->
+        <div class="modal fade" id="sign_up" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
+            <div class="modal-dialog modal-l">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalToggleLabel1">Sign Up</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="margin-left: 8px;">
+                        <form action="/home" method="post">
+                            <form action="/" method="POST" enctype="multipart/form-data" >
+      
+                            <label for="">PROFILE PIC</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-person-bounding-box text-primary"></i></span>
+                              <input type="file" class="form-control" required name="pic"
+                              accept=".jpg, .jpeg, .png, .webp, .jfif, .gif">
+                            </div></br>
+                      
+                            <label for="">FULL NAME</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-person-lines-fill text-primary"></i></span>
+                              <input type="text" class="form-control" required name="fullname" placeholder="Enter Full Name">
+                            </div></br>
+                      
+                            <label for="">AGE</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-person-plus text-primary"></i></span>
+                              <input type="text" class="form-control" required name="age"placeholder="Enter Age ">
+                            </div></br>
+
+                            <label for="">ADDRESS</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="fa fa-location-arrow text-primary"></i></span>
+                              <input type="text" class="form-control" required name="address"placeholder="Enter Address">
+                            </div></br>
+
+                            <label for="">GENDER</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-person text-primary"></i></span>
+                              <input type="text" class="form-control" required name="gender"placeholder="Enter Gender">
+                            </div></br>
+
+                            <label for="">BIRTHDAY</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-calendar text-primary"></i></span>
+                              <input type="date" class="form-control" required name="birthday"placeholder="Birthday">
+                            </div></br>
+
+                            <label for="">CONTACT NUMBER</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-telephone text-primary"></i></span>
+                              <input type="text" class="form-control" required name="contact"placeholder="Enter Contact Number">
+                            </div></br>
+                      
+                            <label for="">EMAIL</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-envelope text-primary"></i></span>
+                              <input type="email" class="form-control" required name="email" placeholder="Enter Email">
+                            </div></br>
+                      
+                            <label for="">PASSWORD</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-key text"></i></span>
+                              <input type="password" class="form-control" required name="password" placeholder="Enter Password">
+                            </div><br>
+
+                            <label for=""> CONFIRM PASSWORD</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-key-fill text" style="color: #4b706e;"></i></span>
+                              <input type="password" class="form-control" required name="confirm_password" placeholder="Enter Password">
+                            </div><br>
+                      
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
+                                <button type="submit" name="create_account"  class="btn btn-primary" style="color: white;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Sign up Modal End-->
+          
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ url_for('static',filename='lib/wow/wow.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='lib/easing/easing.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='lib/waypoints/waypoints.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='lib/owlcarousel/owl.carousel.min.js')}}"></script>
+        
+
+        <!-- Template Javascript -->
+        <script src="{{ url_for('static',filename='js/main.js')}}"></script>
+        
+    </body>
+
+</html>
