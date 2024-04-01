@@ -61,7 +61,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
-                                <a href="#" class="dropdown-item">Logout</a>
+                                <a href="{{url_for('sign_out')}}" class="dropdown-item">Logout</a>
                             </div>
                         </div>
                         
@@ -217,11 +217,11 @@
                             <div class="col-lg-4">
                               <div class="card mb-4">
                                 <div class="card-body text-center">
-                                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                                    class="rounded-circle img-fluid" style="width: 150px;">
-                                  <h5 class="my-3">John Smith</h5>
-                                  <p class="text-muted mb-1">Full Stack Developer</p>
-                                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                  <img src="{{ url_for('static', filename=pic) }}" alt="avatar"
+                                    class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                                  <h5 class="my-3 fw-bold">{{name}}</h5>
+                                  <p class="text-muted mb-1">Reference Id: {{ref_id}}</p>
+                                  <p class="text-muted mb-4">{{address}}</p>
                                   <div class="d-flex justify-content-center mb-2">
                                     <a href="#" class="dropdown-item">Upload New Image</a>
                                   </div>
@@ -239,64 +239,64 @@
                                     <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Full Name</p>
+                                      <p class="text-muted mb-0">Full Name</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">Johnatan Smith</p>
+                                      <p class=" mb-0 fs-5 fw-bold">{{name}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Age</p>
+                                      <p class="text-muted mb-0">Age</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">25</p>
+                                      <p class=" mb-0 fs-5 fw-bold">{{age}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Address</p>
+                                      <p class="text-muted mb-0">Address</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">Shibuya-ku, Kyoto, Tokyo, Japan</p>
+                                      <p class="mb-0 fs-5 fw-bold">{{address}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Gender</p>
+                                      <p class="text-muted mb-0">Gender</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">Male</p>
+                                      <p class="mb-0 fs-5 fw-bold">{{gender}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Birthdate</p>
+                                      <p class="text-muted mb-0">Birthdate</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">03/15/1999</p>
+                                      <p class=" mb-0 fs-5 fw-bold">{{bday}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">contact</p>
+                                      <p class="text-muted mb-0">contact</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">09876543211</p>
+                                      <p class="mb-0 fs-5 fw-bold">{{number}}</p>
                                     </div>
                                   </div>
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <p class="mb-0">Email</p>
+                                      <p class="text-muted mb-0">Email</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">Jonhsmith@gmail.com</p>
+                                      <p class="mb-0 fs-5 fw-bold">{{email}}</p>
                                     </div>
                                   </div>
                                 </div>

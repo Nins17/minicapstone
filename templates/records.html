@@ -58,10 +58,10 @@
                         <a href="{{url_for('records')}}" class="nav-item nav-link">Prediction Records</a>
                         <a href="{{url_for('home')}}#about" class="nav-item nav-link">About Us</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
+                            <a href="{{url_for('home')}}#about" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
                             <div class="dropdown-menu m-0">
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
-                                <a href="#" class="dropdown-item">Logout</a>
+                                <a href="{{url_for('sign_out')}}" class="dropdown-item">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -86,8 +86,8 @@
                                 <div class="card-body text-center">
                                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                                     class="rounded-circle img-fluid" style="width: 150px;">
-                                  <h5 class="my-3">John Smith</h5>
-                                  <p class="text-muted mb-1">Full Stack Developer</p>
+                                  <h5 class="my-3">{{name}}</h5>
+                                  <p class="text-muted mb-1">Reference Id: {{ref_id}}</p>
                                   <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                   <div class="d-flex justify-content-center mb-2">
                                     <a href="#" class="dropdown-item">Upload New Image</a>
@@ -109,7 +109,7 @@
                                       <p class="mb-0">Full Name</p>
                                     </div>
                                     <div class="col-sm-9">
-                                      <p class="text-muted mb-0">Johnatan Smith</p>
+                                      <p class="text-muted mb-0">{{name}}</p>
                                     </div>
                                   </div>
                                   <hr>

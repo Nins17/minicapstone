@@ -84,6 +84,7 @@
         
     </head>
     <body>
+        
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -108,16 +109,25 @@
             
             <div class="form__wrapper">
                 <div class="modal-body" style="margin-left: 8px;">
-                    <form action="/home" method="post">
+                    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            
+            {% for message in messages %}
+                <h6 class="text-white text-center" style="background-color:#b3b3b3;">{{ message }}</h6>
+            {% endfor %}
+            
+        {% endif %}
+    {% endwith %}
+                    <form action="/login" method="post">
                     
                         <div class="input-group">
                           <span class="input-group-text"><i class="bi bi-envelope text-primary"></i></span>
-                          <input type="email" class="form-control" required name="email" placeholder="Enter Email">
+                          <input type="email" class="form-control" required name="loginemail" placeholder="Enter Email">
                         </div></br>
                   
                         <div class="input-group">
                           <span class="input-group-text"><i class="bi bi-key text"style="color: #4b706e;"></i></i></span>
-                          <input type="password" class="form-control" required name="password" placeholder="Enter Password">
+                          <input type="password" class="form-control" required name="loginpassword" placeholder="Enter Password">
                         </div><br>
                         <button type="submit" name="patient_login"  class="btn btn-success" style="color: white; width: 100%; ">Log In</button>
                         <a href="#" class="forgotPassword">Forgot Password?</a>
@@ -139,8 +149,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="margin-left: 8px;">
-                        <form action="/home" method="post">
-                            <form action="/" method="POST" enctype="multipart/form-data" >
+                            <form action="/signup" method="post" enctype="multipart/form-data" >
       
                             <label for="">PROFILE PIC</label>
                             <div class="input-group">
