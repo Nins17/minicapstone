@@ -19,6 +19,10 @@ mysql.init_app(app)
 conn = mysql.connect()  
 cursor = conn.cursor()
 
+cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(5)) 
+records = list(cursor.fetchall())
+for i in records:
+    print(i[0])
 
 
 
@@ -31,7 +35,11 @@ def land():
 def Signup():
     if request.method == "POST":
         cursor.execute('SELECT * FROM profileinfo') 
-        accounts = cursor.fetchone() 
+        accounts = cursor.fetchall()  # Instead of fetching one, fetch everything.
+        all_emails = []  # Create an empty list to add all the emails.
+        for i in accounts:
+            all_emails.append(i[8])  # i with the index of 8 is the column of email.
+        print(all_emails)
         file = request.files['pic'] 
         if file:
             filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
@@ -49,18 +57,19 @@ def Signup():
             password = request.form["password"]
             confirm_password = request.form["confirm_password"]    
              
-    if accounts[8] == emailsignup:
-        if(len(password) >= 8 and password == confirm_password):
-            query = "INSERT INTO profileinfo (id, prof_pic, full_name, age, address, gender, birthday, contact, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            values = (0, prof_pic, fullname, age, address, gender, birthday, contact, emailsignup, password)
-            cursor.execute(query,values)
-            conn.commit()
-            flash('Account created Successfully!!', 'success')
-        else:
-            flash('Password does not match or shorter ', 'error')
+            if emailsignup in all_emails:
+                flash('Email already exist, Sign up again.', 'error')
 
-    else:
-        flash('Email already exist, Sign up again.', 'error')             
+            else:
+                if(len(password) >= 8 and password == confirm_password):
+                    query = "INSERT INTO profileinfo (id, prof_pic, full_name, age, address, gender, birthday, contact, email, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    values = (0, prof_pic, fullname, age, address, gender, birthday, contact, emailsignup, password)
+                    cursor.execute(query, values)
+                    conn.commit()
+                    flash('Account created Successfully!!', 'success')
+                else:
+                    flash('Password does not match or shorter ', 'error')
+
     return redirect(url_for('land'))
             
             
@@ -97,7 +106,80 @@ def login():
         email = info[8]
         
         return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
-    elif session["logged"]:
+        
+    else:
+        flash('no matching credentials', 'error')
+        return redirect('/')  
+            
+    
+@app.route("/home",methods=["POST", "GET"])
+def home():
+    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
+    info = list(cursor.fetchone())
+    id = info[0]
+    prof_pic = info[1]
+    fullname = info[2]
+    age = info[3]
+    address = info[4]
+    gender = info[5]
+    birthday = info[6]
+    contact = info[7]
+    email = info[8]
+    return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+
+@app.route("/diagnose", methods=["POST", "GET"])
+def diagnose():
+    if request.method == "POST":
+        ages = int(request.form["age"])
+        fever = int(request.form["fever"])
+        cough = int(request.form["cough"])
+        fatigue = int(request.form["fatigue"])
+        difBr = int(request.form["difbr"])
+        gender = int(request.form["gender"])
+        bp = int(request.form["bp"])
+        chol = int(request.form["chols"])
+         
+        # Checking conditions for variables
+        if fever == 0 or cough == 0 or fatigue == 0 or difBr == 0:
+            varfever = "NO"
+            varcough = "NO"
+            varfatigue = "NO"
+            vardifBr = "NO"
+        if fever == 1 or cough == 1 or fatigue == 1 or difBr == 1 or bp == 1 or chol == 1:
+            varfever = "YES"
+            varcough = "YES"
+            varfatigue = "YES"
+            vardifBr = "YES"
+            varbp = "LOW"
+            varchol = "LOW"
+        if  gender==1:
+            vargender="FEMALE"
+        if  gender==0:
+            vargender="MALE"
+        if bp == 2 or chol == 2:
+            varbp = "NORMAL"
+            varchol = "NORMAL"
+        elif bp == 3 or chol == 3:
+            varbp = "HIGH"
+            varchol = "HIGH"
+        data = pd.read_csv("data.csv")
+
+        X = data.drop(columns=["Desease"])
+        y = data["Desease"]
+
+        model = DecisionTreeClassifier()
+
+        model.fit(X.values, y)
+
+        diagnosis = model.predict([[ fever,cough,fatigue,difBr, ages, gender,bp,chol]]) 
+        cursor.execute('SELECT id FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
+        ref_id = cursor.fetchone()
+        # Inserting data into the records table
+        query = "INSERT INTO records (Id, Reference_num, Fever, Cough, Fatigue, difficulty_breathing, Age, Gender, Blood_pressure, Cholesterol, Result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (0, ref_id, varfever, varcough, varfatigue, vardifBr, ages,vargender, varbp, varchol, diagnosis[0])
+        cursor.execute(query, values)
+        conn.commit()
+        
         cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
         info = list(cursor.fetchone())
         id = info[0]
@@ -109,42 +191,17 @@ def login():
         birthday = info[6]
         contact = info[7]
         email = info[8]
-        return redirect("/records",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
         
-    else:
-        flash('no matching credentials', 'error')
-        return redirect('/')  
-            
+        cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
+        records = list(cursor.fetchall())
+        
     
-@app.route("/home",methods=["POST", "GET"])
-def home():
-    return render_template("home.html")
+       
+        cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
+        records = list(cursor.fetchall())
+    
+        return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email,records=records)
 
-def diagnose():
-     if request.method == "POST": 
-         if request.form['diagnosis_input']:
-            age = int(request.form["age"])
-            varfever=int(request.form["fever"])
-            varcough = int(request.form["cough"])
-            varfatigue = int(request.form["fatigue"]) 
-            vardifBr = int(request.form["difbr"])
-            vargender = int(request.form["gender"])
-            varbp = int(request.form["bp"])
-            varchol = int(request.form["chol"])
-            
-          
-        
-            data = pd.read_csv("data.csv")
-
-            X = data.drop(columns=["Desease"])
-            y = data["Desease"]
-
-            model = DecisionTreeClassifier()
-
-            model.fit(X.values, y)
-
-            diagnosis = model.predict([[ varfever,varcough, varfatigue, vardifBr, age, vargender, varbp, varchol]]) 
-            return render_template("records.html",prediction=diagnosis[0])
 
 @app.route("/records")
 def records():
@@ -159,8 +216,105 @@ def records():
     birthday = info[6]
     contact = info[7]
     email = info[8]
-    return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+    
+    cursor.execute('SELECT id FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
+    ref_id = cursor.fetchone()
+    cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
+    records = list(cursor.fetchall())
+    
+    return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email,records=records)
 
+
+@app.route('/update')
+def update():
+    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
+    info = list(cursor.fetchone())
+    id = info[0]
+    prof_pic = info[1]
+    fullname = info[2]
+    age = info[3]
+    address = info[4]
+    gender = info[5]
+    birthday = info[6]
+    contact = info[7]
+    email = info[8]
+    return render_template("updateProfile.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+    
+@app.route('/updateinfo',methods=["POST", "GET"])
+def updateinfo():
+    if request.method == "POST":
+        cursor.execute('SELECT * FROM profileinfo')
+        accounts = cursor.fetchall()
+        all_emails = [i[8] for i in accounts]  # List comprehension to extract emails
+        print(all_emails)
+        
+        cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',
+                       (session['email'], session['password']))
+        info = list(cursor.fetchone())
+        id = info[0]
+        profpic = info[1]
+        
+        file = request.files.get('pic')  # Use get() to avoid KeyError if 'pic' is not in request.files
+        if file:
+            filename = os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
+            file.save(filename)
+            newprof_pic = "img/Cover/" + file.filename # Secure filename before concatenating
+        else:
+            newprof_pic = profpic
+        
+        # Extract form data
+        newfullname = request.form["fullname"]
+        newage = int(request.form["age"])
+        newaddress = request.form["address"]
+        newgender = request.form["gender"]
+        newbirthday = request.form["birthday"]
+        newcontact = int(request.form["contact"])
+        newemail = request.form["email"]
+        new_password = request.form["password"]
+        old_password = request.form["old_password"]
+        confirm_password = request.form["confirm_password"]
+        
+        # Validate and update password
+        if len(new_password) >= 8 and new_password == confirm_password:
+            pass  # Password meets criteria
+        elif len(new_password) == 0:
+            new_password = session['password']
+        else:
+            flash('Password does not match or shorter', 'error')
+            return redirect(url_for('updateinfo'))  # Redirect to updateinfo page on password error
+        
+        # Validate and update email
+        if newemail in all_emails:
+            newemail = session['email']
+        else:
+            pass  # Email is unique
+        
+        # Check old password before updating profile
+        if old_password == session['password']:
+            query = "UPDATE profileinfo SET prof_pic=%s, full_name=%s, age=%s, address=%s, gender=%s, " \
+                    "birthday=%s, contact=%s, email=%s, password=%s WHERE id=%s"
+            values = (newprof_pic, newfullname, newage, newaddress, newgender, newbirthday, newcontact,
+                      newemail, new_password, id)
+            cursor.execute(query, values)
+            conn.commit()
+            flash('Account updated Successfully!!', 'success')
+        else:
+            flash('Old password does not match current password', 'error')
+            return redirect(url_for('updateinfo'))  # Redirect to updateinfo page on password error
+    
+    # Fetch user info and render updateProfile.html
+    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',
+                   (session['email'], session['password']))
+    info = list(cursor.fetchone())
+    id, prof_pic, fullname, age, address, gender, birthday, contact, email = info[:9]
+    
+    return render_template("updateProfile.html", ref_id=id, pic=prof_pic, name=fullname, age=age, address=address,
+                           gender=gender, bday=birthday, number=contact, email=email)
+
+        
+        
+    
+    
 @app.route('/sign_out')
 def sign_out():
     session.pop('email')
@@ -171,4 +325,4 @@ def sign_out():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
