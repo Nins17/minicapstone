@@ -1,9 +1,9 @@
-from flask import Flask, render_template,redirect,url_for, request,jsonify
+from flask import Flask, render_template,redirect,url_for, request
 import pandas as pd
 from flask import *
 from sklearn.tree import DecisionTreeClassifier
 from flaskext.mysql import MySQL
-
+import pyttsx3
 import os
 
 app = Flask(__name__)
@@ -18,14 +18,6 @@ app.config['UPLOAD_FOLDER'] = 'static/img/cover'
 mysql.init_app(app)  
 conn = mysql.connect()  
 cursor = conn.cursor()
-
-cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(5)) 
-records = list(cursor.fetchall())
-for i in records:
-    print(i[0])
-
-
-
 
 @app.route("/",methods=["POST", "GET"])
 def land():
@@ -104,8 +96,18 @@ def login():
         birthday = info[6]
         contact = info[7]
         email = info[8]
-        
+        engine = pyttsx3.init()
+
+    # Set properties (optional)
+        engine.setProperty('rate', 150)  # Speed of speech
+
+    # Convert diagnosis to speech
+        diagnosis_text = "Welcom to Predicty Care! Where we care with Predictive Precision."
+        engine.say(diagnosis_text)
+
+        engine.runAndWait()
         return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+        
         
     else:
         flash('no matching credentials', 'error')
@@ -125,6 +127,7 @@ def home():
     birthday = info[6]
     contact = info[7]
     email = info[8]
+
     return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
 
 @app.route("/diagnose", methods=["POST", "GET"])
@@ -171,7 +174,10 @@ def diagnose():
 
         model.fit(X.values, y)
 
-        diagnosis = model.predict([[ fever,cough,fatigue,difBr, ages, gender,bp,chol]]) 
+        diagnosis = model.predict([[ fever,cough,fatigue,difBr, ages, gender,bp,chol]])
+        session['diagnosis_res']=str(diagnosis[0])
+        
+        
         cursor.execute('SELECT id FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
         ref_id = cursor.fetchone()
         # Inserting data into the records table
@@ -199,7 +205,19 @@ def diagnose():
        
         cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
         records = list(cursor.fetchall())
-    
+        diagnosis_res=str(diagnosis[0])
+        # Initialize the TTS engine
+        engine = pyttsx3.init()
+
+    # Set properties (optional)
+        engine.setProperty('rate', 150)  # Speed of speech
+
+    # Convert diagnosis to speech
+        diagnosis_text = "The prediction says you have: " +diagnosis_res+"...We recommend yo to visit your doctor"
+        engine.say(diagnosis_text)
+
+    # Wait for the speech to finish
+        engine.runAndWait()
         return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email,records=records)
 
 
@@ -258,7 +276,7 @@ def updateinfo():
         if file:
             filename = os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
             file.save(filename)
-            newprof_pic = "img/Cover/" + file.filename # Secure filename before concatenating
+            newprof_pic = "img/Cover/" + file.filename 
         else:
             newprof_pic = profpic
         
@@ -313,6 +331,23 @@ def updateinfo():
 
         
         
+@app.route('/deleteacc')
+def deleteacc():
+    cursor.execute('DELETE FROM profileinfo WHERE email = %s and password = %s',
+                   (session['email'], session['password']))
+    conn.commit()
+    session.pop('email')
+    flash('Account has been deleted!!', 'success')
+    return redirect(url_for('land'))
+
+
+@app.route('/deleterec',methods=["POST", "GET"])
+def deleterec():
+    row_number = int(request.form['row_number'])
+    cursor.execute('DELETE FROM records WHERE id=%s',(row_number))
+    conn.commit()
+    return redirect(url_for('records'))
+
     
     
 @app.route('/sign_out')
