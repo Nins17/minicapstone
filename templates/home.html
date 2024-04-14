@@ -41,38 +41,38 @@
         </div>
         <!-- Spinner End -->
 
-
-        <!-- Navbar & Hero Start -->
+            <!-- Navbar & Hero Start -->
         <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
-                <a href="{{url_for('land')}}" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0">PredictiCare</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="{{url_for('home')}}" class="nav-item nav-link active">Home</a>
-                        <a href="{{url_for('records')}}" class="nav-item nav-link">Prediction Records</a>
-                        <a href="#about" class="nav-item nav-link">About Us</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
-                            <div class="dropdown-menu m-0">
-                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
-                                <a href="{{url_for('sign_out')}}" class="dropdown-item">Logout</a>
-                            </div>
+          <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
+              <a href="{{url_for('land')}}" class="navbar-brand p-0">
+                  <h1 class="text-primary m-0">PredictiCare</h1>
+                  <!-- <img src="img/logo.png" alt="Logo"> -->
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                  <span class="fa fa-bars"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                  <div class="navbar-nav ms-auto py-0">
+                      <a href="{{url_for('home')}}" id="homeBtn" class="nav-item nav-link active">Home</a>
+                      <a href="{{url_for('records')}}" class="nav-item nav-link">Prediction Records</a>
+                      <a href="{{url_for('home')}}#about" id="aboutBtn" class="nav-item nav-link">About Us</a>
+                      <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Profile</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
+                            <a href="{{url_for('sign_out')}}" class="dropdown-item">Log out</a>
                         </div>
-                        
-                    </div>
-                   
-                </div>
-            </nav>
+                    
+                      </div>
+                      
+                  </div>
+                 
+              </div>
+          </nav>
 
 
             <!-- Carousel Start -->
-            <div class="header-carousel owl-carousel">
+            <div class="header-carousel owl-carousel" id="land">
                 <div class="header-carousel-item">
                     <img src="{{ url_for('static',filename='img/banner1.jpg')}}" class="img-fluid w-100" alt="Image">
                     <div class="carousel-caption">
@@ -138,11 +138,11 @@
 
                         <h5><p>Do you experience difficulty in breathing?</p></h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="difbr" id="difBr1" value="1" >
+                                <input class="form-check-input" type="radio" name="diffbr" id="difBr1" value="1" >
                                 <label class="form-check-label" for="difBr1">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="difbr" id="difBr2" value="0">
+                                <input class="form-check-input" type="radio" name="diffbr" id="difBr2" value="0">
                                 <label class="form-check-label" for="difBr2">No</label>
                             </div><p>
 
@@ -339,7 +339,7 @@
         
         
         <!-- About Start -->
-        <div class="container-fluid about bg-light py-5" id="about">
+        <div class="container-fluid about bg-light py-5" class="about active" id="about">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s">
@@ -376,7 +376,7 @@
        
 
         <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" id="footer">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-6 col-xl-3">
@@ -425,7 +425,7 @@
         <!-- Footer End -->
         
         <!-- Copyright Start -->
-        <div class="container-fluid copyright py-4">
+        <div class="container-fluid copyright py-4" id="footer">
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-start mb-md-0">
@@ -445,8 +445,8 @@
         <!-- Back to Top -->
         <a href="#" class="btn  btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
+
         <script>
-          
           var modal = document.getElementById("del_modal");
           
        
@@ -470,6 +470,50 @@
               window.location.href="{{url_for('home')}}";
             }
           }
+        </script>
+        <script>
+          function isInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+              rect.top >= 0 &&
+              rect.left >= 0 &&
+              rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+              rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+          }
+
+          window.addEventListener('scroll', function() {
+      
+            var aboutSection = document.getElementById('about');
+            var footerSection = document.getElementById('footer');
+            var landSection = document.getElementById('land');
+            
+            
+            var aboutBtn = document.getElementById('aboutBtn');
+            var homeBtn = document.getElementById('homeBtn');
+            
+            
+            if (isInViewport(aboutSection)) {
+              aboutBtn.classList.add('active');
+              homeBtn.classList.remove('active');
+            } else if (isInViewport(footerSection)){
+              aboutBtn.classList.remove('active');
+              homeBtn.classList.add('active');
+            } else if (isInViewport(landSection)){
+              aboutBtn.classList.remove('active');
+              homeBtn.classList.add('active');
+            } else if (isInViewport(view_profileSection)){
+              aboutBtn.classList.remove('active');
+              homeBtn.classList.add('active');
+            } else if (isInViewport(diagnosisSection)){
+              aboutBtn.classList.remove('active');
+              homeBtn.classList.add('active');
+            }else if (isInViewport(del_modalSection)){
+              aboutBtn.classList.remove('active');
+              homeBtn.classList.add('active');
+            }
+          }
+          );
           </script>
         
         <!-- JavaScript Libraries -->

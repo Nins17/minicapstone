@@ -21,8 +21,9 @@ cursor = conn.cursor()
 
 @app.route("/",methods=["POST", "GET"])
 def land():
+    flash('', 'error')
     return render_template("landing.html", show ="true")
-
+   
 @app.route('/signup', methods=['POST', 'GET'])
 def Signup():
     if request.method == "POST":
@@ -88,14 +89,16 @@ def login():
         cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
         info = list(cursor.fetchone())
         session['id']= info[0]
-        prof_pic = info[1]
-        fullname = info[2]
-        age = info[3]
-        address = info[4]
-        gender = info[5]
-        birthday = info[6]
-        contact = info[7]
-        email = info[8]
+        session['prof_pic'] = info[1]
+        session['fullname'] = info[2]
+        session['age'] = info[3]
+        session['address'] = info[4]
+        session['gender'] = info[5]
+        session['birthday'] = info[6]
+        session['contact'] = info[7]
+        session['email'] = info[8]
+        session['password'] = info[9]
+        
         engine = pyttsx3.init()
 
     # Set properties (optional)
@@ -106,7 +109,7 @@ def login():
         engine.say(diagnosis_text)
 
         engine.runAndWait()
-        return render_template("home.html",ref_id= session['id'],pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+        return render_template("home.html",ref_id= session['id'],pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],bday=session['birthday'],number=session['contact'],email=session['email'])
         
         
     else:
@@ -118,17 +121,17 @@ def login():
 def home():
     cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
     info = list(cursor.fetchone())
-    id = info[0]
-    prof_pic = info[1]
-    fullname = info[2]
-    age = info[3]
-    address = info[4]
-    gender = info[5]
-    birthday = info[6]
-    contact = info[7]
-    email = info[8]
-
-    return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+    session['id']= info[0]
+    session['prof_pic'] = info[1]
+    session['fullname'] = info[2]
+    session['age'] = info[3]
+    session['address'] = info[4]
+    session['gender'] = info[5]
+    session['birthday'] = info[6]
+    session['contact'] = info[7]
+    session['email'] = info[8]
+    session['password'] = info[9]
+    return render_template("home.html",ref_id= session['id'],pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],bday=session['birthday'],number=session['contact'],email=session['email'])
 
 @app.route("/diagnose", methods=["POST", "GET"])
 def diagnose():
@@ -137,7 +140,7 @@ def diagnose():
         fever = int(request.form["fever"])
         cough = int(request.form["cough"])
         fatigue = int(request.form["fatigue"])
-        difBr = int(request.form["difbr"])
+        difBr = int(request.form["diffbr"])
         gender = int(request.form["gender"])
         bp = int(request.form["bp"])
         chol = int(request.form["chols"])
@@ -178,34 +181,19 @@ def diagnose():
         session['diagnosis_res']=str(diagnosis[0])
         
         
-        cursor.execute('SELECT id FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
-        ref_id = cursor.fetchone()
+         
+        refer_id = session['id']
         # Inserting data into the records table
         query = "INSERT INTO records (Id, Reference_num, Fever, Cough, Fatigue, difficulty_breathing, Age, Gender, Blood_pressure, Cholesterol, Result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (0, ref_id, varfever, varcough, varfatigue, vardifBr, ages,vargender, varbp, varchol, diagnosis[0])
+        values = (0, refer_id, varfever, varcough, varfatigue, vardifBr, ages,vargender, varbp, varchol, diagnosis[0])
         cursor.execute(query, values)
         conn.commit()
-        
-        cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
-        info = list(cursor.fetchone())
-        id = info[0]
-        prof_pic = info[1]
-        fullname = info[2]
-        age = info[3]
-        address = info[4]
-        gender = info[5]
-        birthday = info[6]
-        contact = info[7]
-        email = info[8]
-        
-        cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
-        records = list(cursor.fetchall())
-        
-    
-       
-        cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
-        records = list(cursor.fetchall())
+
         diagnosis_res=str(diagnosis[0])
+        cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(session['id'])) 
+        session['records'] = list(cursor.fetchall())
+
+        
         # Initialize the TTS engine
         engine = pyttsx3.init()
 
@@ -218,52 +206,27 @@ def diagnose():
 
     # Wait for the speech to finish
         engine.runAndWait()
-        return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email,records=records)
+        return render_template("records.html",ref_id=refer_id,pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],bday=session['birthday'],number=session['contact'],email=session['email'],records=session['records'])
 
 
 @app.route("/records")
 def records():
-    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
-    info = list(cursor.fetchone())
-    id = info[0]
-    prof_pic = info[1]
-    fullname = info[2]
-    age = info[3]
-    address = info[4]
-    gender = info[5]
-    birthday = info[6]
-    contact = info[7]
-    email = info[8]
-    
-    cursor.execute('SELECT id FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
-    ref_id = cursor.fetchone()
-    cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(ref_id)) 
-    records = list(cursor.fetchall())
-    
-    return render_template("records.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email,records=records)
+    refer_id = session['id']
+    cursor.execute('SELECT * FROM records WHERE Reference_num=%s',(session['id'])) 
+    session['records'] = list(cursor.fetchall())
 
+    return render_template("records.html",ref_id=refer_id,pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],bday=session['birthday'],number=session['contact'],email=session['email'],records=session['records'])
 
 @app.route('/update')
 def update():
-    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
-    info = list(cursor.fetchone())
-    id = info[0]
-    prof_pic = info[1]
-    fullname = info[2]
-    age = info[3]
-    address = info[4]
-    gender = info[5]
-    birthday = info[6]
-    contact = info[7]
-    email = info[8]
-    session['info[8]']  = email
-    session['info[1]'] = prof_pic
-    return render_template("updateProfile.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+   
+   return render_template("updateProfile.html",ref_id=session['id'],pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],
+                           bday=session['birthday'],number=session['contact'],email=session['email'])
     
 @app.route('/updateinfo',methods=["POST", "GET"])
 def updateinfo():
-    newprof_pic = session['info[1]']
-    eemaill = session['info[8]']
+    newprof_pic = session['profpic']
+    eemaill = session['email']
     if request.method == "POST":
         cursor.execute('SELECT * FROM profileinfo')
         accounts = cursor.fetchall()
@@ -277,7 +240,7 @@ def updateinfo():
             file.save(filename)
             newprof_pic = "img/Cover/" + file.filename 
         else:
-            newprof_pic = session['info[1]']
+            newprof_pic = session['profpic']
         
         # Extract form data
         
@@ -298,6 +261,7 @@ def updateinfo():
         elif len(new_password) == 0:
             new_password = session['password']
         else:
+            old_password != session['password']
             flash('Password does not match or shorter', 'error')
             return redirect(url_for('updateinfo'))  # Redirect to updateinfo page on password error
         
@@ -320,15 +284,9 @@ def updateinfo():
             flash('Old password does not match current password', 'error')
             return redirect(url_for('updateinfo'))  # Redirect to updateinfo page on password error
     
-    # Fetch user info and render updateProfile.html
-    cursor.execute('SELECT * FROM profileinfo WHERE email = %s ',
-                   (eemaill))
-    info = list(cursor.fetchone())
-    print(info)
-    id, prof_pic, fullname, age, address, gender, birthday, contact, email = info[:9]
-    
-    return render_template("updateProfile.html", ref_id=id, pic=prof_pic, name=fullname, age=age, address=address,
-                           gender=gender, bday=birthday, number=contact, email=email)
+  
+    return render_template("updateProfile.html",ref_id=session['id'],pic=session['prof_pic'],name=session['fullname'],age=session['age'],address=session['address'],gender=session['gender'],
+                           bday=session['birthday'],number=session['contact'],email=session['email'])
 
         
         
@@ -353,7 +311,8 @@ def deleterec():
     
 @app.route('/sign_out')
 def sign_out():
-    session.pop('email')
+    session.clear()
+    flash('you have been logged out', 'success')
     return redirect(url_for('land'))
 
     

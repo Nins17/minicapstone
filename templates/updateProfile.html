@@ -54,11 +54,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="{{url_for('home')}}" class="nav-item nav-link active">Home</a>
+                        <a href="{{url_for('home')}}" class="nav-item nav-link">Home</a>
                         <a href="{{url_for('records')}}" class="nav-item nav-link">Prediction Records</a>
                         <a href="{{url_for('home')}}#about" class="nav-item nav-link">About Us</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Profile</a>
                             <div class="dropdown-menu m-0">
                                 <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
                                 <a href="{{url_for('sign_out')}}" class="dropdown-item">Logout</a>
@@ -210,6 +210,7 @@
                         </section>
                         <div class="modal-footer">
                             <button type="submit" class="dropdown-item" name="Update">Save Changes</button>
+                           <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#del_modal">Delete Account</a>
                         </div>
                     </form>
                     </div>
