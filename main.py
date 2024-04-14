@@ -87,7 +87,7 @@ def login():
     if session["logged"] == True: 
         cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',( session['email'],session['password']))  
         info = list(cursor.fetchone())
-        id = info[0]
+        session['id']= info[0]
         prof_pic = info[1]
         fullname = info[2]
         age = info[3]
@@ -106,7 +106,7 @@ def login():
         engine.say(diagnosis_text)
 
         engine.runAndWait()
-        return render_template("home.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
+        return render_template("home.html",ref_id= session['id'],pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
         
         
     else:
@@ -256,21 +256,20 @@ def update():
     birthday = info[6]
     contact = info[7]
     email = info[8]
+    session['info[8]']  = email
+    session['info[1]'] = prof_pic
     return render_template("updateProfile.html",ref_id=id,pic=prof_pic,name=fullname,age=age,address=address,gender=gender,bday=birthday,number=contact,email=email)
     
 @app.route('/updateinfo',methods=["POST", "GET"])
 def updateinfo():
+    newprof_pic = session['info[1]']
+    eemaill = session['info[8]']
     if request.method == "POST":
         cursor.execute('SELECT * FROM profileinfo')
         accounts = cursor.fetchall()
+        
         all_emails = [i[8] for i in accounts]  # List comprehension to extract emails
         print(all_emails)
-        
-        cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',
-                       (session['email'], session['password']))
-        info = list(cursor.fetchone())
-        id = info[0]
-        profpic = info[1]
         
         file = request.files.get('pic')  # Use get() to avoid KeyError if 'pic' is not in request.files
         if file:
@@ -278,9 +277,10 @@ def updateinfo():
             file.save(filename)
             newprof_pic = "img/Cover/" + file.filename 
         else:
-            newprof_pic = profpic
+            newprof_pic = session['info[1]']
         
         # Extract form data
+        
         newfullname = request.form["fullname"]
         newage = int(request.form["age"])
         newaddress = request.form["address"]
@@ -310,9 +310,9 @@ def updateinfo():
         # Check old password before updating profile
         if old_password == session['password']:
             query = "UPDATE profileinfo SET prof_pic=%s, full_name=%s, age=%s, address=%s, gender=%s, " \
-                    "birthday=%s, contact=%s, email=%s, password=%s WHERE id=%s"
+                    "birthday=%s, contact=%s, email=%s, password=%s WHERE email=%s"
             values = (newprof_pic, newfullname, newage, newaddress, newgender, newbirthday, newcontact,
-                      newemail, new_password, id)
+                      newemail, new_password, session['email'])
             cursor.execute(query, values)
             conn.commit()
             flash('Account updated Successfully!!', 'success')
@@ -321,9 +321,10 @@ def updateinfo():
             return redirect(url_for('updateinfo'))  # Redirect to updateinfo page on password error
     
     # Fetch user info and render updateProfile.html
-    cursor.execute('SELECT * FROM profileinfo WHERE email = %s and password = %s',
-                   (session['email'], session['password']))
+    cursor.execute('SELECT * FROM profileinfo WHERE email = %s ',
+                   (eemaill))
     info = list(cursor.fetchone())
+    print(info)
     id, prof_pic, fullname, age, address, gender, birthday, contact, email = info[:9]
     
     return render_template("updateProfile.html", ref_id=id, pic=prof_pic, name=fullname, age=age, address=address,
