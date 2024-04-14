@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>PredictiCare</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo3-modified.png" > 
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="../static/css/style.css" rel="stylesheet">
+        
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
+                <a href="{{url_for('land')}}" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0">PredictiCare</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="../home.html" class="nav-item nav-link active">Home</a>
+                        <a href="../records.html" class="nav-item nav-link">Prediction Records</a>
+                        <a href="#about" class="nav-item nav-link">About Us</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><b>Profile<b></a>
+                            <div class="dropdown-menu m-0">
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view_profile">View Profile</a>
+                                <a href="{{url_for('sign_out')}}" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </nav>
+
+
+            <!-- Carousel Start -->
+            <div class="header-carousel owl-carousel">
+                <div class="header-carousel-item">
+                    <img src="../static/img/banner1.jpg" class="img-fluid w-100" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="carousel-caption-content p-3">
+                            <a href="#" class="btnmain rounded-pill text-white py-3 px-5" data-bs-toggle="modal" data-bs-target="#diagnosis"><b>Start Diagnosis<b></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-carousel-item">
+                    <img src="../static/img/Untitled40.png" class="img-fluid w-100" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="carousel-caption-content p-3">
+                            <a href="#" class="btnmain rounded-pill text-white py-3 px-5" data-bs-toggle="modal" data-bs-target="#diagnosis">Start Diagnosis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel End -->
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!--Diagnosis Modal Start-->
+        <div class="modal fade" id="diagnosis" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalToggleLabel1">Fill out the form to start diagnosis</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="margin-left: 8px;">
+                    <form action="/diagnose" method="post">
+                        <h5><p>Do you experience fever?</p></h5>
+                                <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="fever" id="fever11" value="1" >
+                                <label class="form-check-label" for="fever1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="fever" id="fever2" value="0">
+                                <label class="form-check-label" for="fever2">No</label>
+                            </div>
+                            <p>
+
+                        <h5><p>Do you experience cough?</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="cough" id="cough1" value="1" >
+                                <label class="form-check-label" for="cough1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="cough" id="cough2" value="0">
+                                <label class="form-check-label" for="cough2">No</label>
+                            </div><p>
+
+                        <h5><p>Do you experience fatigue?</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="fatigue" id="fatigue1" value="1" >
+                                <label class="form-check-label" for="fatigue1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="fatigue" id="fatigue2" value="0">
+                                <label class="form-check-label" for="fatigue2">No</label>
+                            </div><p>
+
+                        <h5><p>Do you experience difficulty in breathing?</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="difbr" id="difBr1" value="1" >
+                                <label class="form-check-label" for="difBr1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="difbr" id="difBr2" value="0">
+                                <label class="form-check-label" for="difBr2">No</label>
+                            </div><p>
+
+                        <h5><p>Please enter your age.</p></h5>
+                            <div class="form-check form-check-inline" style="margin-left: -25px;">
+                                <input type="text" class="form-control" name="age" placeholder="Enter your age" required>
+                            </div>
+                            <p>
+
+                        <h5><p>Please Select you gender.</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender1" value="0" >
+                                <label class="form-check-label" for="gender1">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender2" value="1">
+                                <label class="form-check-label" for="gender2">Female</label>
+                            </div><p>
+
+                        <h5><p>Please select your blood pressure.</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bp" id="bp1" value="1" >
+                                <label class="form-check-label" for="bp1">Low</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bp" id="bp2" value="2">
+                                <label class="form-check-label" for="bp2">Normal</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bp" id="bp2" value="3">
+                                <label class="form-check-label" for="bp2">High</label>
+                            </div><p>
+
+                        <h5><p>Please select you cholesterol level.</p></h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chols" id="chol1" value="1" >
+                                <label class="form-check-label" for="chol1">Low</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chols" id="chol2" value="2">
+                                <label class="form-check-label" for="chol2">Normal</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chols" id="chol3" value="3">
+                                <label class="form-check-label" for="chol3">High</label>
+                            </div>
+                        </br>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary" style="color: white;">Clear</button>
+                    <button type="submit"  class="btn btn-primary" style="color: white;">Submit</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <!--Diagnosis Modal End-->
+        <!--delete confirmation Modal Start-->
+        <div class="modal fade" id="del_modal">
+          <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Delete Account</h4>
+          <button type="button" class="delclose btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <form action="/deleteacc" method="post">
+          <div class="modal-body">
+          <p>Are you sure you want to delete this account? All of the information and records will be deleted!!</p>
+          </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn-danger" style="border-radius:10px; height:35px;"><a href="{{url_for('deleteacc')}}" >Delete Account</a></button>
+          </div>
+        </form>
+          </div>
+          
+          </div>
+          
+          </div>
+        <!--View Profile Modal Start-->
+        <div class="modal fade" id="view_profile" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalToggleLabel2">Account Details</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <section style="background-color: #eee;">
+                        <div class="container py-3">
+                      
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="card mb-4">
+                                <div class="card-body text-center">
+                                  <img src="{{ url_for('static', filename=pic) }}" alt="avatar"
+                                    class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                                  <h5 class="my-3 fw-bold">{{name}}</h5>
+                                  <p class="text-muted mb-1">Reference Id: {{ref_id}}</p>
+                                  <p class="text-muted mb-4">{{address}}</p>
+                                  <div class="d-flex justify-content-center mb-2">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-8">
+                              <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="">
+                                          <p class="mb-0" style="text-align: center; font-size: 25px;">Profile Info</p>
+                                        </div>
+                                      </div>
+                                    <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Full Name</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class=" mb-0 fs-5 fw-bold">{{name}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Age</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class=" mb-0 fs-5 fw-bold">{{age}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Address</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="mb-0 fs-5 fw-bold">{{address}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Gender</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="mb-0 fs-5 fw-bold">{{gender}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Birthdate</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class=" mb-0 fs-5 fw-bold">{{bday}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Contact</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="mb-0 fs-5 fw-bold">{{number}}</p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="text-muted mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="mb-0 fs-5 fw-bold">{{email}}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </section>
+                    <div class="modal-footer">
+                        <a href="{{url_for('update')}}" class="dropdown-item" >Update Profile Info</a>
+                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#del_modal">Delete Account</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <!--View Profile Modal End-->
+        
+
+        
+        
+        <!-- About Start -->
+        <div class="container-fluid about bg-light py-5" id="about">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5 wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="about-img pb-5 ps-5">
+                            <img src="../static/img/logo3-modified.png" class="img-fluid rounded w-100" style="object-fit: cover;" alt="Image">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.4s">
+                        <div class="section-title text-start mb-5">
+                            <h4 class="sub-title pe-3 mb-0">About Us</h4>
+                            <h1 class="display-3 mb-4">We Care with Predictive Precisions</h1>
+                            <p class="mb-4">PredictiCare offers to assist you
+                              in diagnosing your illness, with
+                              the help of AI. With provided
+                              data sets inside of our system
+                              and will be generated by
+                              machine learning—  a user can
+                              diagnose themselves without
+                              having the need to visit the
+                              clinic.</p>
+                            <div class="mb-4">
+                              <p class="text-secondary"><i class="fa fa-check text-primary me-2"></i> accessible and user-friendly interface for users..</p>
+                              <p class="text-secondary"><i class="fa fa-check text-primary me-2"></i> Aiding users in order for them to prevent a more serious illness..</p>
+                              <p class="text-secondary"><i class="fa fa-check text-primary me-2"></i> Convenient and Hassle-Free Diagnostic Procedures.</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+       
+
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4"><i class="fas fa-star-of-life me-3"></i>Predicticare</h4>
+                            <p>Prevention and detection is better than cure
+                            </p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-share fa-2x text-white me-2"></i>
+                                <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Quick Links</h4>
+                            <a href="{{url_for('home')}}"><i class="fas fa-angle-right me-2"></i> Home</a>
+                            <a href="{{url_for('records')}}"><i class="fas fa-angle-right me-2"></i> Prediction Records</a>
+                            <a href="{{url_for('home')}}#about"><i class="fas fa-angle-right me-2"></i> About Us</a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Predicticare Services</h4>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Diagnosis Prediction</a>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Contact Info</h4>
+                            <a href=""><i class="fa fa-map-marker-alt me-2"></i> Phinma University of Iloilo</a>
+                            <a href=""><i class="fas fa-envelope me-2"></i> mekus2@gmail.com</a>
+                            <a href=""><i class="fas fa-envelope me-2"></i> mekus2@gmail.com</a>
+                            <a href=""><i class="fas fa-phone me-2"></i> +639098787652</a>
+                            <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-md-0">
+                        <span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Mekus Mekus</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom">MekusMekus</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn  btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        <script>
+          
+          var modal = document.getElementById("del_modal");
+          
+       
+          var closeBtn = document.getElementsByClassName("delclose")[0];
+          
+          var cancel = document.getElementById("cancel")
+        
+          closeBtn.onclick = function() {
+            modal.style.display = "none";
+            window.location.href="{{url_for('home')}}";
+          }
+          cancel.onclick = function() {
+            modal.style.display = "none";
+            window.location.href="{{url_for('home')}}";
+          }
+          
+         
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+              window.location.href="{{url_for('home')}}";
+            }
+          }
+          </script>
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../static/lib/wow/wow.min.js"></script>
+        <script src="../static/lib/easing/easing.min.js"></script>
+        <script src="../static/lib/waypoints/waypoints.min.js"></script>
+        <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+        
+
+        <!-- Template Javascript -->
+        <script src="../static/js/main.js"></script>
+        
+    </body>
+
+</html>
